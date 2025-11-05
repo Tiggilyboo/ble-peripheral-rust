@@ -108,7 +108,12 @@ impl PeripheralImpl for Peripheral {
         return Ok(result > 0 && self.adv_handle.is_some());
     }
 
-    async fn start_advertising(&mut self, name: &str, uuids: &[Uuid]) -> Result<(), Error> {
+    async fn start_advertising(
+        &mut self,
+        name: &str,
+        uuids: &[Uuid],
+        appearance: Option<u16>,
+    ) -> Result<(), Error> {
         let manufacturer_data = BTreeMap::new();
 
         let mut services: BTreeSet<Uuid> = BTreeSet::new();
@@ -121,6 +126,7 @@ impl PeripheralImpl for Peripheral {
             manufacturer_data,
             discoverable: Some(true),
             local_name: Some(name.to_string()),
+            appearance,
             ..Default::default()
         };
         let adv_handle: AdvertisementHandle = self.adapter.advertise(le_advertisement).await?;

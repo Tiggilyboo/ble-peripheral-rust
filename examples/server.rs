@@ -78,7 +78,7 @@ async fn start_app() {
     log::info!("Service Added");
 
     if let Err(err) = peripheral
-        .start_advertising("RustBLE", &[service.uuid])
+        .start_advertising("RustBLE", &[service.uuid], None)
         .await
     {
         log::error!("Error starting advertising: {}", err);

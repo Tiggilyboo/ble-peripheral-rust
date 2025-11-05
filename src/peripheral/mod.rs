@@ -31,7 +31,12 @@ pub trait PeripheralImpl: Send + Sync {
 
     async fn is_advertising(&mut self) -> Result<bool, Error>;
 
-    async fn start_advertising(&mut self, name: &str, uuids: &[Uuid]) -> Result<(), Error>;
+    async fn start_advertising(
+        &mut self,
+        name: &str,
+        uuids: &[Uuid],
+        appearance: Option<u16>,
+    ) -> Result<(), Error>;
 
     async fn stop_advertising(&mut self) -> Result<(), Error>;
 
